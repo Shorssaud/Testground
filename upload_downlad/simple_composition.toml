@@ -1,10 +1,10 @@
 [metadata]
-  name = 'simple_tcp_ping'
+  name = 'upload_download'
   author = ""
 
 [global]
-  plan = "simple_tcp_ping"
-  case = "simple_tcp_ping"
+  plan = "upload_download"
+  case = "upload_download"
   total_instances = 0
   builder = "docker:generic"
   runner = "local:docker"

@@ -1,9 +1,9 @@
-import std/strutils, std/random
+import std/strutils
 import testground_sdk, chronos, stew/byteutils
 
 type
   AwesomeStruct = object
-    rand: int
+    message: string
 
 testground(client):
   let
@@ -23,9 +23,9 @@ testground(client):
 
   await client.waitForBarrier("network_setup", client.testInstanceCount)
 
-  randomize()
-  await client.publish("rands", AwesomeStruct(rand: rand(100)))
-  let randomValues = client.subscribe("rands", AwesomeStruct)
+  # TODO modify this to select the files to upload
+  await client.publish("message", AwesomeStruct(message: "SENT"))
+  let randomValues = client.subscribe("message", AwesomeStruct)
   for _ in 0 ..< 2:
     echo await randomValues.popFirst()
 
@@ -38,6 +38,7 @@ testground(client):
       server = createStreamServer(initTAddress(myIp & ":5050"), flags = {ReuseAddr})
       connection = await server.accept()
 
+    #TODO here we upload the files to server
     for _ in 0 ..< count:
       doAssert (await connection.write(payload.toBytes())) == payload.len
     connection.close()
@@ -46,6 +47,7 @@ testground(client):
     let connection = await connect(initTAddress(serverIp & ":5050"))
     var buffer = newSeq[byte](payload.len)
 
+    #TODO here we download files from server
     for _ in 0 ..< count:
       await connection.readExactly(addr buffer[0], payload.len)
       doAssert string.fromBytes(buffer) == payload

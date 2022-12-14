@@ -2,7 +2,7 @@
 
 version       = "0.1.0"
 author        = "The author"
-description   = "Demo for another package"
+description   = "Upload and download files"
 license       = "MIT"
 
 
