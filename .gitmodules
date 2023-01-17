@@ -1,0 +1,3 @@
+[submodule "clustertest"]
+	path = clustertest
+	url = https://github.com/guseggert/clustertest
